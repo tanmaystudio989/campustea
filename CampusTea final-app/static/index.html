@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f4">
+  <title>CampusTea — spill it, campus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <div class="auth-brand"><span class="brand-mark"><svg class="brand-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 3.5c.9-1 1.8-1 2.7 0 .9 1 1.8 1 2.7 0 .9-1 1.8-1 2.7 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M3.6 8.2h13.3c.6 0 1.1.5 1.1 1.1v.9c0 3.3-2.7 6-6 6H8.6c-3.3 0-6-2.7-6-6v-.9c0-.6.5-1.1 1-1.1Z" fill="currentColor"/><path d="M17.6 10.1h1.3a2.1 2.1 0 1 1 0 4.2h-1.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M3.4 19.2h13.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span>campus<span class="brand-light">tea</span></span></div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth-tab="login">Log in</button>
+        <button class="auth-tab" data-auth-tab="signup">Sign up</button>
+      </div>
+      <form id="loginForm" class="auth-form">
+        <label class="field-label">USERNAME<input id="loginUsername" autocomplete="username" required></label>
+        <label class="field-label">PASSWORD<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+        <p class="form-message" id="loginMessage" role="status"></p>
+        <button class="primary-button auth-submit" type="submit">Log in <span>↗</span></button>
+      </form>
+      <form id="signupForm" class="auth-form hidden">
+        <label class="field-label">DISPLAY NAME<input id="signupName" maxlength="40" required></label>
+        <label class="field-label">USERNAME<input id="signupUsername" autocomplete="username" minlength="3" maxlength="30" required></label>
+        <label class="field-label">PASSWORD<input id="signupPassword" type="password" autocomplete="new-password" minlength="6" required></label>
+        <label class="field-label">YOUR CAMPUS<select id="signupCollege" required></select></label>
+        <p class="form-message" id="signupMessage" role="status"></p>
+        <button class="primary-button auth-submit" type="submit">Create account <span>↗</span></button>
+      </form>
+    </div>
+  </section>
+
+  <div id="appRoot" class="hidden">
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="CampusTea home"><span class="brand-mark"><svg class="brand-icon" viewBox="0 0 24 24" width="17" height="17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 3.5c.9-1 1.8-1 2.7 0 .9 1 1.8 1 2.7 0 .9-1 1.8-1 2.7 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M3.6 8.2h13.3c.6 0 1.1.5 1.1 1.1v.9c0 3.3-2.7 6-6 6H8.6c-3.3 0-6-2.7-6-6v-.9c0-.6.5-1.1 1-1.1Z" fill="currentColor"/><path d="M17.6 10.1h1.3a2.1 2.1 0 1 1 0 4.2h-1.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M3.4 19.2h13.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span>campus<span class="brand-light">tea</span></span></a>
+    <label class="college-picker"><span>YOUR CAMPUS</span><select id="collegeSelect" aria-label="Choose your college"></select><span class="chevron">⌄</span></label>
+    <div class="top-actions"><button class="icon-button" title="Notifications" aria-label="Notifications">♧</button><button class="profile-chip" id="openProfile"><span class="avatar avatar-small" id="topAvatar"></span><span id="topProfileName"></span><span class="chevron">⌄</span></button></div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-label">YOUR SPACE</div>
+      <button class="nav-item active" data-page="home"><span>⌂</span> Home feed</button>
+      <button class="nav-item" data-page="communities"><span>▦</span> Communities <b id="joinedCount">0</b></button>
+      <div class="side-label communities-label">YOUR COMMUNITIES <button id="addCommunity" title="Browse communities">＋</button></div>
+      <div id="sideCommunities"></div>
+      <div class="sidebar-bottom"><div class="campus-note"><span>✳</span><div><strong>Better together.</strong><small>Your campus, one conversation at a time.</small></div></div><span class="version">CAMPUSTEA · MVP</span></div>
+    </aside>
+
+    <main class="main-content">
+      <section id="homePage" class="page">
+        <div class="welcome-row"><div><p class="eyebrow" id="welcomeCampus"></p><h1>Your campus,<br><span>a little closer.</span></h1><p class="welcome-sub">Good things happen when students find their people.</p></div><div class="hero-doodle" aria-hidden="true"><span>✳</span><span>☀</span><span>↗</span><div class="doodle-circle"></div></div></div>
+        <div class="feed-toolbar"><div><h2 id="feedTitle">The feed</h2><p id="feedSubtitle">Posts from the communities you've joined</p></div><div class="feed-actions"><button type="button" class="text-button hidden" id="backToFeed">← Back to feed</button><button type="button" class="join-button hidden" id="feedJoin"></button></div></div>
+        <form class="composer card" id="postForm"><div class="composer-top"><span class="avatar avatar-mint" id="composerAvatar"></span><textarea id="postText" maxlength="500" placeholder="What's happening on campus?" rows="2" required></textarea></div><div class="composer-bottom"><label class="community-select-wrap"><span>POSTING IN</span><select id="postCommunity"></select></label><button class="primary-button" type="submit">Share post <span>↗</span></button></div><p class="form-message" id="postMessage" role="status"></p></form>
+        <div class="post-list" id="postList"></div>
+        <div class="empty-state hidden" id="feedEmpty"><span>✳</span><h3 id="feedEmptyTitle">Nothing here just yet</h3><p id="feedEmptyText"></p><button class="text-button" id="feedEmptyAction" data-goto="communities">Explore communities →</button></div>
+      </section>
+
+      <section id="communitiesPage" class="page hidden">
+        <div class="page-heading"><p class="eyebrow">FIND YOUR PEOPLE</p><h1>Communities</h1><p>Small corners of campus for the things you care about.</p></div>
+        <div class="community-tools"><label class="search-box"><span>⌕</span><input id="communitySearch" placeholder="Search communities..."></label><div class="community-tabs"><button class="filter active" data-community-filter="all">All</button><button class="filter" data-community-filter="joined">Joined</button></div></div>
+        <div class="community-grid" id="communityGrid"></div>
+      </section>
+    </main>
+
+    <aside class="right-rail">
+      <section class="rail-card profile-card"><div class="rail-title"><span>YOUR PROFILE</span><button id="editProfile">Edit ↗</button></div><div class="profile-main"><span class="avatar avatar-large" id="profileAvatar"></span><div><h3 id="profileName"></h3><p id="profileBio"></p></div></div><div class="profile-stats"><div><strong id="profileJoined">0</strong><span>COMMUNITIES</span></div><div><strong id="profilePosts">0</strong><span>POSTS</span></div></div></section>
+      <div class="rail-quote"><span>“</span><p>College feels smaller when you find your people.</p><small>A LITTLE CAMPUSTEA WISDOM</small></div>
+      <footer class="rail-footer">Made for campus, with care. <span>✳</span></footer>
+    </aside>
+  </div>
+  </div>
+
+  <dialog id="profileDialog" class="profile-dialog"><form id="profileForm"><div class="dialog-head"><div><p class="eyebrow">A LITTLE ABOUT YOU</p><h2>Your profile</h2></div><button type="button" class="close-button" id="closeProfile" aria-label="Close">×</button></div><label class="field-label">DISPLAY NAME<input id="nameInput" maxlength="40" required></label><label class="field-label">BIO<textarea id="bioInput" maxlength="120" rows="3"></textarea></label><div class="dialog-actions"><button type="button" class="secondary-button" id="logoutButton">Log out</button><button type="button" class="secondary-button" id="cancelProfile">Cancel</button><button class="primary-button" type="submit">Save profile <span>↗</span></button></div></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
