@@ -18,9 +18,13 @@ BASE_DIR = Path(__file__).parent
 
 _env_url = os.environ.get("DATABASE_URL")
 if _env_url:
-    # Some hosts (Render, Heroku) hand out URLs starting "postgres://", but
-    # SQLAlchemy's modern driver name needs "postgresql://" instead.
+    # Some hosts (Render, Heroku) hand out URLs starting "postgres://", and
+    # SQLAlchemy needs "postgresql://". We also pin the driver to psycopg2
+    # (+psycopg2) explicitly — otherwise SQLAlchemy may try the newer
+    # "psycopg" v3 driver, which isn't installed (we ship psycopg2-binary).
     DATABASE_URL = _env_url.replace("postgres://", "postgresql://", 1)
+    if "+psycopg2" not in DATABASE_URL:
+        DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
     connect_args = {}
 else:
     DATABASE_URL = f"sqlite:///{BASE_DIR / 'campustea.db'}"
