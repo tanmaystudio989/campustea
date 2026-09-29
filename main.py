@@ -24,9 +24,7 @@ app.add_middleware(SessionMiddleware, secret_key=os.environ.get("SESSION_SECRET"
 init_db()
 
 COLLEGES = [
-    "Delhi University",
-    "Greater Noida Institute of Technology",
-    "Bennett University",
+    "KCC Institute of Legal and Higher Education",
 ]
 
 COMMUNITIES = [
